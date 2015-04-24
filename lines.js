@@ -29,13 +29,15 @@ if (buf[4] === 0x0a && buf[5] === 0x0b
 }
 
 document.getElementById("putnlinesButton").onclick = function() {
-	texture1(document.getElementById("putnlinesN").value);
+	lines(document.getElementById("putnlinesN").value);
+};
+
+document.getElementById("putnflinesButton").onclick = function() {
+	flines(document.getElementById("putnflinesN").value);
 };
 }
 
-
-function texture1(N) {
-if (!N) N = 40;
+function lines(N) {
 if (isLittleEndian) {
 	for (var n = 0; n < N; ++n) {
 		y = myrand(h);
@@ -49,6 +51,35 @@ if (isLittleEndian) {
 	}
 
 } else {}
-imageData.data.set(buf8);
-ctx.putImageData(imageData, 0, 0);
+refresh();
+}
+
+function flines(N) {
+var W;
+if (isLittleEndian) {
+	for (var n = 0; n < N; ++n) {
+		y = myrand(h);
+		W = myrand(w);
+		for (var x = 0; x < W; ++x) {
+			data[y * w + x] =
+				(255   << 24) |    // alpha
+				(40 << 16) |    // blue
+				(40 <<  8) |    // green
+				40;            // red
+		}
+	}
+
+} else {}
+refresh();
+}
+
+function refresh() {
+	imageData.data.set(buf8);
+	ctx.putImageData(imageData, 0, 0);
+}
+
+function myclear() {
+	ctx.clearRect(0, 0, w, h);
+	for (var i = 0; i < data.length; ++i)
+		data[i] = 0;
 }
