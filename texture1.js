@@ -13,25 +13,31 @@ function myrand(n) {
 }
 
 window.onload = function() {
-	canvas = document.getElementById('canvas');
-	w  = canvas.width;
-	h = canvas.height;
-	ctx = canvas.getContext('2d');
-	imageData = ctx.getImageData(0, 0, w, h);
-	buf = new ArrayBuffer(imageData.data.length);
-	buf8 = new Uint8ClampedArray(buf);
-	data = new Uint32Array(buf);
-	data[1] = 0x0a0b0c0d;
-	isLittleEndian = true;
-	if (buf[4] === 0x0a && buf[5] === 0x0b
-			&& buf[6] === 0x0c && buf[7] === 0x0d) {
-		isLittleEndian = false;
-	}
+canvas = document.getElementById('canvas');
+w  = canvas.width;
+h = canvas.height;
+ctx = canvas.getContext('2d');
+imageData = ctx.getImageData(0, 0, w, h);
+buf = new ArrayBuffer(imageData.data.length);
+buf8 = new Uint8ClampedArray(buf);
+data = new Uint32Array(buf);
+data[1] = 0x0a0b0c0d;
+isLittleEndian = true;
+if (buf[4] === 0x0a && buf[5] === 0x0b
+		&& buf[6] === 0x0c && buf[7] === 0x0d) {
+	isLittleEndian = false;
 }
 
-function texture1() {
+document.getElementById("putnlinesButton").onclick = function() {
+	texture1(document.getElementById("putnlinesN").value);
+};
+}
+
+
+function texture1(N) {
+if (!N) N = 40;
 if (isLittleEndian) {
-	for (var n = 0; n < 40; ++n) {
+	for (var n = 0; n < N; ++n) {
 		y = myrand(h);
 		for (var x = 0; x < w; ++x) {
 			data[y * w + x] =
