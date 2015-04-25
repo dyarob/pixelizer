@@ -38,10 +38,10 @@ if (isLittleEndian) {
 		y = myrand(h);
 		for (var x = 0; x < w; ++x) {
 			data[y * w + x] =
-				(255   << 24) |    // alpha
+				(255<< 24) |    // alpha
 				(40 << 16) |    // blue
 				(40 <<  8) |    // green
-				40;            // red
+				 40;            // red
 		}
 	}
 } else {}
@@ -56,10 +56,10 @@ if (isLittleEndian) {
 		W = myrand(w);
 		for (var x = 0; x < W; ++x) {
 			data[y * w + x] =
-				(255 << 24) |    // alpha
+				(255<< 24) |    // alpha
 				(40 << 16) |    // blue
 				(40 <<  8) |    // green
-				40;            // red
+				 40;            // red
 		}
 	}
 } else {}
